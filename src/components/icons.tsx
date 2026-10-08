@@ -84,6 +84,15 @@ export function PlayIcon(props: IconProps) {
   );
 }
 
+export function PauseIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <rect x="6.5" y="5" width="4" height="14" rx="1.2" />
+      <rect x="13.5" y="5" width="4" height="14" rx="1.2" />
+    </svg>
+  );
+}
+
 export function MenuIcon(props: IconProps) {
   return (
     <Base {...props}>
@@ -211,6 +220,33 @@ export function FlagIcon(props: IconProps) {
         opacity="0.9"
       />
     </svg>
+  );
+}
+
+export function VolumeIcon(props: IconProps) {
+  return (
+    <Base {...props}>
+      <path d="M11 5 6.5 9H3v6h3.5L11 19V5Z" />
+      <path d="M15.5 9.2a4 4 0 0 1 0 5.6" />
+      <path d="M18.3 6.4a8 8 0 0 1 0 11.2" />
+    </Base>
+  );
+}
+
+export function VolumeMuteIcon(props: IconProps) {
+  return (
+    <Base {...props}>
+      <path d="M11 5 6.5 9H3v6h3.5L11 19V5Z" />
+      <path d="m16 9.5 5 5M21 9.5l-5 5" />
+    </Base>
+  );
+}
+
+export function ExpandIcon(props: IconProps) {
+  return (
+    <Base {...props}>
+      <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3" />
+    </Base>
   );
 }
 

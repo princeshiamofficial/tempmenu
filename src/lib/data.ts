@@ -114,8 +114,12 @@ export const ORGANIZED_POINTS = [
 /* Demo video                                                          */
 /* ------------------------------------------------------------------ */
 
-/** Set to your YouTube / Vimeo / self-hosted embed URL when the demo is ready. */
-export const DEMO_VIDEO_URL = "";
+/** YouTube / Vimeo embed URL or a direct .mp4 / .webm file. */
+export const DEMO_VIDEO_URL =
+  "https://v1.pinimg.com/videos/iht/expMp4/f5/95/a4/f595a4da623d1223b1717a624b53940c_720w.mp4";
+
+export const DEMO_TOUR_VIDEO_URL =
+  "https://v1.pinimg.com/videos/iht/expMp4/79/86/b7/7986b72a3da0ea79fcd1c5c482eefecf_720w.mp4";
 
 export const DEMO_WORKFLOW = [
   "Login",

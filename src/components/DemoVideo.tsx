@@ -1,91 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { DEMO_VIDEO_URL, DEMO_WORKFLOW } from "@/lib/data";
+import { useEffect, useRef, useState } from "react";
+import { DEMO_TOUR_VIDEO_URL, DEMO_WORKFLOW } from "@/lib/data";
 import { trackEvent } from "@/lib/analytics";
 import { Button, Container, SectionHeading } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
-import { ArrowRightIcon, CloseIcon, PlayIcon } from "@/components/icons";
-
-/* ------------------------------------------------------------------ */
-/* Modal player                                                        */
-/* ------------------------------------------------------------------ */
-
-function DemoModal({ onClose }: { onClose: () => void }) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-night/90 p-4 backdrop-blur-sm sm:p-8"
-      role="dialog"
-      aria-modal="true"
-      aria-label="MenuSnap demo video"
-      onClick={onClose}
-    >
-      <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-        <button
-          type="button"
-          onClick={onClose}
-          autoFocus
-          aria-label="Close video"
-          className="absolute -top-12 right-0 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20"
-        >
-          <CloseIcon className="h-5 w-5" />
-        </button>
-        <div className="aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-lift">
-          {DEMO_VIDEO_URL ? (
-            <iframe
-              src={DEMO_VIDEO_URL}
-              className="h-full w-full"
-              title="MenuSnap product demo video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          ) : (
-            <div className="flex h-full flex-col items-center justify-center gap-4 px-6 text-center">
-              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
-                <PlayIcon className="h-7 w-7 text-white/70" />
-              </span>
-              <p className="text-lg font-bold text-white">Demo video coming soon</p>
-              <p className="max-w-sm text-sm leading-relaxed text-white/60">
-                Set <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-xs">DEMO_VIDEO_URL</code> in{" "}
-                <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-xs">src/lib/data.ts</code> to connect
-                your YouTube, Vimeo or self-hosted video.
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Demo section                                                        */
-/* ------------------------------------------------------------------ */
+import { ArrowRightIcon } from "@/components/icons";
 
 export function DemoVideo() {
-  const [open, setOpen] = useState(false);
+  const [started, setStarted] = useState(false);
+  const frameRef = useRef<HTMLDivElement | null>(null);
 
-  const openDemo = () => {
-    setOpen(true);
-    trackEvent("demoStarted", { source: "demo_section" });
-  };
-
-  const closeDemo = () => {
-    setOpen(false);
-    trackEvent("demoCompleted");
-  };
+  useEffect(() => {
+    if (started || !DEMO_TOUR_VIDEO_URL) return;
+    const el = frameRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setStarted(true);
+          trackEvent("demoStarted", { source: "demo_section" });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [started]);
 
   return (
     <section id="demo" className="relative overflow-hidden bg-night text-white">
@@ -107,17 +49,8 @@ export function DemoVideo() {
         {/* Video container */}
         <Reveal className="mt-12">
           <div
-            className="group relative mx-auto aspect-video w-full max-w-4xl cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] transition-transform duration-300 hover:scale-[1.01]"
-            onClick={openDemo}
-            role="button"
-            tabIndex={0}
-            aria-label="Play the 2-minute MenuSnap demo"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                openDemo();
-              }
-            }}
+            ref={frameRef}
+            className="relative mx-auto aspect-video w-full max-w-4xl overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02]"
           >
             {/* Dashboard thumbnail (CSS-only) */}
             <div className="absolute inset-6 flex flex-col gap-3 opacity-30 sm:inset-10">
@@ -143,18 +76,25 @@ export function DemoVideo() {
               </div>
             </div>
 
-            {/* Play button */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="absolute h-20 w-20 rounded-full bg-accent/40" aria-hidden="true" />
-              <span className="animate-pulse-ring absolute h-20 w-20 rounded-full bg-accent/40" aria-hidden="true" />
-              <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-accent text-white shadow-pop transition-transform duration-300 group-hover:scale-110">
-                <PlayIcon className="h-8 w-8 translate-x-0.5" />
-              </span>
-            </div>
+            {started && (
+              <video
+                src={DEMO_TOUR_VIDEO_URL}
+                className="absolute inset-0 h-full w-full object-cover"
+                autoPlay
+                muted
+                playsInline
+                controls
+                preload="auto"
+                onEnded={() => trackEvent("demoCompleted")}
+                title="MenuSnap product tour video"
+              />
+            )}
 
-            <span className="absolute bottom-4 left-4 rounded-full bg-night/70 px-3.5 py-1.5 text-xs font-bold text-white backdrop-blur">
-              2-Min Product Tour
-            </span>
+            {!started && (
+              <span className="absolute bottom-4 left-4 rounded-full bg-night/70 px-3.5 py-1.5 text-xs font-bold text-white backdrop-blur">
+                2-Min Product Tour
+              </span>
+            )}
           </div>
         </Reveal>
 
@@ -186,8 +126,6 @@ export function DemoVideo() {
           </Button>
         </div>
       </Container>
-
-      {open && <DemoModal onClose={closeDemo} />}
     </section>
   );
 }

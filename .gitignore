@@ -43,3 +43,6 @@ next-env.d.ts
 # project run docs, logs, and portable toolchain (per-worktree, not shipped)
 .freebuff/
 .tools/
+
+# playwright artifacts
+.playwright-mcp/

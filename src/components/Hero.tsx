@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useRef, useState, type ReactNode } from "react";
+import { useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { HERO_FILTERS, HERO_ITEMS, HERO_MENU_DEFAULT, type HeroItem } from "@/lib/data";
 import { trackEvent } from "@/lib/analytics";
 import { Button, Container } from "@/components/ui";
+import { VideoShowcase } from "@/components/VideoShowcase";
 import {
   CheckIcon,
   CloseIcon,
@@ -15,42 +16,6 @@ import {
   SearchIcon,
   SparkleIcon,
 } from "@/components/icons";
-
-/* ------------------------------------------------------------------ */
-/* Floating metric card                                                */
-/* ------------------------------------------------------------------ */
-
-function MetricCard({
-  icon,
-  value,
-  label,
-  className,
-  delay = "0s",
-}: {
-  icon: ReactNode;
-  value: string;
-  label: string;
-  className?: string;
-  delay?: string;
-}) {
-  return (
-    <div
-      className={cn(
-        "animate-float hidden items-center gap-3 rounded-2xl border border-line bg-white/95 p-3.5 pr-5 shadow-lift backdrop-blur lg:flex",
-        className,
-      )}
-      style={{ animationDelay: delay }}
-    >
-      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent-deep">
-        {icon}
-      </span>
-      <span>
-        <span className="block text-[15px] font-extrabold leading-tight text-ink">{value}</span>
-        <span className="block text-xs font-medium text-muted">{label}</span>
-      </span>
-    </div>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /* Interactive dashboard mockup                                        */
@@ -92,28 +57,6 @@ function HeroMockup() {
 
   return (
     <div className="relative mx-auto mt-14 w-full max-w-5xl sm:mt-16">
-      {/* Floating metric cards (desktop) */}
-      <MetricCard
-        icon={<LayersIcon className="h-5 w-5" />}
-        value="500+"
-        label="Restaurants"
-        className="absolute -left-4 top-14 -rotate-2"
-      />
-      <MetricCard
-        icon={<SearchIcon className="h-5 w-5" />}
-        value="Thousands"
-        label="Menu Items"
-        className="absolute -right-4 top-40 rotate-2"
-        delay="1.2s"
-      />
-      <MetricCard
-        icon={<span className="text-sm font-extrabold">৳</span>}
-        value="Price"
-        label="Reference"
-        className="absolute -bottom-7 -left-3 rotate-1"
-        delay="2.2s"
-      />
-
       {/* Dashboard window */}
       <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-lift transition-transform duration-700 lg:[transform:perspective(1600px)_rotateX(2.5deg)] lg:hover:[transform:perspective(1600px)_rotateX(0deg)]">
         {/* Browser chrome */}
@@ -374,6 +317,9 @@ export function Hero() {
             <span>Built for food businesses</span>
           </p>
         </div>
+
+        {/* Demo video device */}
+        <VideoShowcase />
 
         {/* Product mockup */}
         <HeroMockup />

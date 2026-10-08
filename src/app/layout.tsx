@@ -16,6 +16,12 @@ const notoSansBengali = Noto_Sans_Bengali({
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://menusnap.app";
 
+const CLARITY_SNIPPET = `(function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ybcmh8qf6z");`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -70,8 +76,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="bn"
       className={`${manrope.variable} ${notoSansBengali.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-base text-ink">
+      <body className="flex min-h-full flex-col bg-base text-ink" suppressHydrationWarning>
+        <script type="text/javascript" dangerouslySetInnerHTML={{ __html: CLARITY_SNIPPET }} />
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
