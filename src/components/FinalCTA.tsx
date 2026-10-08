@@ -7,7 +7,7 @@ import { PlayIcon } from "@/components/icons";
 
 export function FinalCTA() {
   return (
-    <section id="final-cta" className="section-pad bg-base">
+    <section id="final-cta" className="section-pad bg-surface">
       <Container>
         <Reveal>
           <div className="relative overflow-hidden rounded-[2.5rem] bg-night px-6 py-16 text-center text-white sm:px-12 sm:py-20 lg:py-24">

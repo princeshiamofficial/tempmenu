@@ -51,7 +51,7 @@ export function SmartSearch() {
   const demoFinished = query === SEARCH_DEMO_QUERY && !userTyped;
 
   return (
-    <section id="smart-search" className="section-pad bg-base">
+    <section id="smart-search" className="section-pad bg-surface">
       <Container>
         <div ref={sectionRef} className="mx-auto max-w-3xl">
           <SectionHeading

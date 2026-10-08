@@ -116,7 +116,7 @@ export function MenuBuilderPreview() {
   };
 
   return (
-    <section id="builder" className="section-pad bg-base">
+    <section id="builder" className="section-pad bg-surface">
       <Container>
         <SectionHeading
           eyebrow="Menu Builder"

@@ -17,7 +17,7 @@ export function Container({
 /* Button — polymorphic (anchor or button)                             */
 /* ------------------------------------------------------------------ */
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "dark" | "dark-ghost";
+type ButtonVariant = "primary" | "secondary" | "ghost" | "dark" | "dark-ghost" | "night";
 type ButtonSize = "sm" | "md" | "lg";
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -28,6 +28,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   ghost: "text-ink hover:bg-ink/5",
   dark: "bg-white text-ink shadow-card hover:bg-cream",
   "dark-ghost": "border border-white/20 text-white hover:bg-white/10",
+  night: "bg-night text-white shadow-card hover:bg-black hover:shadow-lift",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -68,7 +69,7 @@ export function Button({
 
   const content = (
     <>
-      <span>{children}</span>
+      <span className="inline-flex items-center gap-2">{children}</span>
       {withArrow && (
         <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
       )}

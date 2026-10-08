@@ -4,7 +4,7 @@ import { Reveal } from "@/components/Reveal";
 
 export function Benefits() {
   return (
-    <section id="benefits" className="section-pad bg-base">
+    <section id="benefits" className="section-pad bg-surface">
       <Container>
         <SectionHeading
           eyebrow="Why MenuSnap"

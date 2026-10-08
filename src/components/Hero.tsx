@@ -295,7 +295,7 @@ export function Hero() {
             </Button>
             <Button
               href="#demo"
-              variant="secondary"
+              variant="night"
               size="lg"
               className="w-full sm:w-auto"
             >

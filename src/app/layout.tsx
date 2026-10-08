@@ -78,7 +78,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${manrope.variable} ${notoSansBengali.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-base text-ink" suppressHydrationWarning>
+      <body className="flex min-h-full flex-col bg-surface text-ink" suppressHydrationWarning>
         <script type="text/javascript" dangerouslySetInnerHTML={{ __html: CLARITY_SNIPPET }} />
         <a href="#main-content" className="skip-link">
           Skip to content

@@ -93,7 +93,7 @@ const PREVIEWS = [ExplorePreview, PickPreview, BuildPreview];
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="section-pad bg-base">
+    <section id="how-it-works" className="section-pad bg-surface">
       <Container>
         <SectionHeading
           eyebrow="How It Works"

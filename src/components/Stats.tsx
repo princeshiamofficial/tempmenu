@@ -5,7 +5,7 @@ import { STATS } from "@/lib/data";
 
 export function Stats() {
   return (
-    <section aria-label="MenuSnap in numbers" className="border-y border-line bg-base">
+    <section aria-label="MenuSnap in numbers" className="border-y border-line bg-surface">
       <Container>
         <ul className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 lg:grid-cols-4 lg:py-14">
           {STATS.map((stat, i) => (

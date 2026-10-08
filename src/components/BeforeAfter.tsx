@@ -8,7 +8,7 @@ const SCRAMBLE = ["-rotate-3", "rotate-2", "-rotate-1", "rotate-3", "-rotate-2",
 
 export function BeforeAfter() {
   return (
-    <section id="compare" className="section-pad bg-base">
+    <section id="compare" className="section-pad bg-surface">
       <Container>
         <div className="grid items-stretch gap-6 lg:grid-cols-2">
           {/* Without */}

@@ -5,7 +5,7 @@ import { LockIcon } from "@/components/icons";
 
 export function PurchaseFlow() {
   return (
-    <section id="purchase" className="section-pad bg-base">
+    <section id="purchase" className="section-pad bg-surface">
       <Container>
         <SectionHeading
           eyebrow="Purchase Flow"

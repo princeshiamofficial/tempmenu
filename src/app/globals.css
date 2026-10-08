@@ -6,7 +6,7 @@
     -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* Color system */
-  --color-base: #ffffff;
+  --color-surface: #ffffff;
   --color-cream: #fafaf8;
   --color-ink: #111111;
   --color-muted: #667085;
@@ -32,7 +32,7 @@
   }
 
   body {
-    background: var(--color-base);
+    background: var(--color-surface);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
